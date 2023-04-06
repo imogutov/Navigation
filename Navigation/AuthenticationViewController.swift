@@ -1,9 +1,3 @@
-//
-//  AuthenticationViewController.swift
-//  Navigation
-//
-//  Created by Ivan Mogutov on 04.02.2023.
-//
 
 import UIKit
 import LocalAuthentication
@@ -11,29 +5,12 @@ import Firebase
 
 class AuthenticationViewController: UIViewController {
     
-    private enum LocalizedKeys: String {
-        case button = "authenticate"
-    }
+    var didSendEventClosure: ((AuthenticationViewController.Event) -> Void)?
     
     private let authService = LocalAuthorizationService()
     private let authContext = LAContext()
     
-    private lazy var button: CustomButton = {
-        let button = CustomButton(title: ~LocalizedKeys.button.rawValue, titleColor: .systemBlue)
-        button.layer.cornerRadius = 6
-        button.addTarget(self, action: #selector(auth), for: .touchUpInside)
-        return button
-    }()
-    
-    private func setupButton() {
-        if authContext.biometryType == .faceID {
-            button.setImage(UIImage(systemName: "faceid"), for: .normal)
-        } else {
-            button.setImage(UIImage(systemName: "touchid"), for: .normal)
-        }
-    }
-    
-    @objc func auth() {
+    private func auth() {
         authService.canEvaluate { (canEvaluate, _, canEvaluateError) in
             guard canEvaluate else {
                 alert(
@@ -52,22 +29,9 @@ class AuthenticationViewController: UIViewController {
                         okActionTitle: "OK!")
                     return
                 }
-                
-                
-                
-                
-                if Auth.auth().currentUser == nil {
-                    let loginVC = LogInViewController()
-                    self?.navigationController?.pushViewController(loginVC, animated: true)
-                } else {
-                    let profileVC = ProfileViewController()
-                    self?.navigationController?.pushViewController(profileVC, animated: true)
-                }
-                
-               
+                self?.didSendEventClosure?(.login)
             }
         }
-        
         
         func alert(
             title: String,
@@ -95,14 +59,16 @@ class AuthenticationViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         self.navigationController?.tabBarController?.tabBar.isHidden = true
-        view.addSubview(button)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        button.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        setupButton()
+        auth()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.tabBarController?.viewControllers?.remove(at: 0)
+    }
+}
+
+extension AuthenticationViewController {
+    enum Event {
+        case login
     }
 }

@@ -1,54 +1,36 @@
+//
+//  AppDelegate.swift
+//  TabBarController+Coordinator
+//
+//  Created by Vitalii Zaitcev on 6/18/20.
+//  Copyright © 2020 Vitalii Zaitcev. All rights reserved.
+//
 
 import UIKit
 import Firebase
-import UserNotifications
 
-@main
+@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
+
     var window: UIWindow?
+
+    var appCoordinator: AppCoordinator?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
         FirebaseApp.configure()
-        self.window = UIWindow(frame: UIScreen.main.bounds)
+                
+        window = UIWindow.init(frame: UIScreen.main.bounds)
         
-        let center = UNUserNotificationCenter.current()
-        center.delegate = self
-        let notificationService = LocalNotificationsService()
-        notificationService.registeForLatestUpdatesIfPossible()
-        notificationService.scheduleNotification()
+        let navigationController: UINavigationController = .init()
+
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
         
-        let mainCoordinator = MainCoordinator()
-        self.window?.rootViewController = mainCoordinator.startApplication()
-        self.window?.makeKeyAndVisible()
-        
+        appCoordinator = AppCoordinator.init(navigationController)
+        appCoordinator?.start()
+                
         return true
     }
-    
-//    func applicationWillTerminate(_ application: UIApplication) {
-//        do {
-//            try Auth.auth().signOut()
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-//    }
 }
-
-extension AppDelegate: UNUserNotificationCenterDelegate {
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        switch response.actionIdentifier {
-        case "Dismiss":
-            break
-        default:
-            break
-        }
-        completionHandler()
-    }
-}
-
-
-
-
-
-
 

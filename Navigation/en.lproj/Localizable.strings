@@ -9,6 +9,7 @@
 "error" = "Error!";
 "done" = "Done";
 "successRegistration" = "Success registration";
+"enterNickAndLogin" = "Create your nickname and login";
 "pleaseLogin" = "Please, login";
 "setYourStatus" = "Set your status";
 "setStatus" = "Set status";
@@ -26,3 +27,12 @@
 "somethingNew" = "Something new";
 "lookAtYourUpdates" = "Look at your updates";
 "dismiss" = "Dismiss";
+"feed" = "Feed";
+"profile" = "Profile";
+"enterNickname" = "Enter your nickname";
+"publicFirstPost" = "Public your first post";
+"numberOfPosts" = "Number of your posts:";
+"publicMore" = "Public more";
+"publishPost" = "Publish a post";
+"addImage" = "Add an image";
+"postText" = "The text of the post";

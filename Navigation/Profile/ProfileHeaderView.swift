@@ -7,27 +7,21 @@ import FirebaseFirestore
 
 
 class ProfileHeaderView: UIView {
-
-    let userID = Auth.auth().currentUser?.email ?? "123333@we.ru"
     
-    let uid = Auth.auth().currentUser?.uid ?? "mHd5qbFLKKTtEVRm3buLGEni9Jm2"
+    private let userID = Auth.auth().currentUser?.displayName ?? "123333@we.ru"
+    
+    private let uid = Auth.auth().currentUser?.uid ?? "mHd5qbFLKKTtEVRm3buLGEni9Jm2"
     
     private let storage = Storage.storage()
     
-    
-    
-    
-    @objc func getAvatar() {
+    @objc private func getAvatar() {
         
-        // Create a reference to the file you want to download
         let avatarRef = storage.reference().child("avatars/\(uid)/avatar.png")
         
-        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
         avatarRef.getData(maxSize: 1 * 2048 * 2048) { data, error in
             if let error = error {
                 print(error.localizedDescription)
             } else {
-                // Data for "images/island.jpg" is returned
                 let image = UIImage(data: data!)
                 self.avatarImageView.image = image
             }
@@ -37,10 +31,6 @@ class ProfileHeaderView: UIView {
     private enum LocalizedKeys: String {
         case setYourStatus = "setYourStatus"
         case setStatus = "setStatus"
-    }
-    
-    @objc func selectAvatar() {
-        print("select avatar is pushed")
     }
     
     public lazy var avatarImageView: UIImageView = {
@@ -82,7 +72,6 @@ class ProfileHeaderView: UIView {
         statusTextField.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         statusTextField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         statusTextField.placeholder = ~LocalizedKeys.setYourStatus.rawValue
-        
         statusTextField.indent(size: 10)
         statusTextField.translatesAutoresizingMaskIntoConstraints = false
         return statusTextField
@@ -91,18 +80,14 @@ class ProfileHeaderView: UIView {
     private lazy var setStatusButton: CustomButton = {
         let setStatusButton = CustomButton(title: ~LocalizedKeys.setStatus.rawValue, titleColor: .white)
         setStatusButton.backgroundColor = .systemBlue
-        //        setStatusButton.setTitle("Set status", for: .normal)
-        //        setStatusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         setStatusButton.translatesAutoresizingMaskIntoConstraints = false
         setStatusButton.layer.cornerRadius = 4
-        setStatusButton.layer.shadowOffset = CGSize(width: 4, height: 4)
-        setStatusButton.layer.shadowRadius = 4
-        setStatusButton.layer.shadowColor = UIColor.black.cgColor
-        setStatusButton.layer.shadowOpacity = 0.7
+//        setStatusButton.layer.shadowOffset = CGSize(width: 4, height: 4)
+//        setStatusButton.layer.shadowRadius = 4
+//        setStatusButton.layer.shadowColor = UIColor.black.cgColor
+//        setStatusButton.layer.shadowOpacity = 0.7
         return setStatusButton
     }()
-    
-    
     
     func layout() {
         
@@ -153,9 +138,7 @@ class ProfileHeaderView: UIView {
     
     func loadStatus() {
         
-        
         let db = Firestore.firestore()
-        
         
         db.collection(uid).getDocuments { querySnapshot, error in
             guard error == nil else {
@@ -188,15 +171,10 @@ class ProfileHeaderView: UIView {
             self!.loadStatus()
             self?.statusTextField.text = ""
         }
-        
-        //    @objc func buttonPressed() {
-        //        print("Status")
-        //        statusLabel.text = statusTextField.text
-        //    }
     }
 }
-    
-    
-    
-    
-    
+
+
+
+
+

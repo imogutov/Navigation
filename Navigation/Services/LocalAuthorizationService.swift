@@ -1,9 +1,3 @@
-//
-//  LocalAuthorizationService.swift
-//  Navigation
-//
-//  Created by Ivan Mogutov on 04.02.2023.
-//
 
 import Foundation
 import LocalAuthentication

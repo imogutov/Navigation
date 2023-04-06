@@ -9,27 +9,35 @@ import Foundation
 import FirebaseFirestore
 
 class Post {
+    var firestoreID: String?
+    var authorUID: String
     var author: String
+    var authorName: String
     var description: String
     var date: Date
     var image: String
     
-    init(author: String, description: String, date: Date, image: String) {
+    init(authorUID: String, author: String, authorName: String, description: String, date: Date, image: String) {
+        self.authorUID = authorUID
         self.author = author
+        self.authorName = authorName
         self.description = description
         self.date = date
         self.image = image
     }
     
     init(document: QueryDocumentSnapshot) {
+        self.firestoreID = document.documentID
+        self.authorUID = document.data()["authorUID"] as? String ?? ""
         self.author = document.data()["author"] as? String ?? ""
+        self.authorName = document.data()["authorName"] as? String ?? ""
         self.description = document.data()["description"] as? String ?? ""
         self.date = (document.data()["date"] as? Timestamp)?.dateValue() ?? Date(timeIntervalSince1970: 0)
         self.image = document.data()["image"] as? String ?? ""
     }
     
     var dictionaryForFirestore: [String: Any] {
-        return ["author" : author, "description" : description, "date" : date, "image" : image]
+        return ["authorUID": authorUID, "author" : author, "authorName" : authorName, "description" : description, "date" : date, "image" : image]
     }
 }
 
@@ -82,8 +90,11 @@ class FirestoreManager {
         }
     }
     
-    func deletePost() {
-        
+    func deletePost(post: Post, completion: @escaping (_ errorString: String?) -> ()) {
+        guard let firestoreID = post.firestoreID else { return }
     
+        firebaseDB.collection("posts").document(firestoreID).delete() { error in
+            completion(error?.localizedDescription)
+        }
     }
 }

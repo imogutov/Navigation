@@ -1,9 +1,12 @@
 
 import UIKit
+import Firebase
 
-class LogInViewController: UIViewController {
+class LoginViewController: UIViewController {
     
-    var delegate: LoginViewControllerDelegate?
+    var didSendEventClosure: ((LoginViewController.Event) -> Void)?
+    
+    private let db = Firestore.firestore()
     
     private enum LocalizedKeys: String {
         case loginLabelSingUp = "loginLabeleSignUp"
@@ -18,9 +21,11 @@ class LogInViewController: UIViewController {
         case done = "done"
         case successReg = "successRegistration"
         case pleaseLogin = "pleaseLogin"
+        case enterNickname = "enterNickname"
+        case enterNickAndLogin = "enterNickAndLogin"
     }
     
-    var signUp: Bool = true {
+    private var signUp: Bool = true {
         willSet {
             if newValue {
                 signUpButton.setTitle(~LocalizedKeys.signUp.rawValue, for: .normal)
@@ -35,7 +40,6 @@ class LogInViewController: UIViewController {
             }
         }
     }
-    
     
     private lazy var logoImageView: UIImageView = {
         let logoImageView = UIImageView(image: UIImage(named: "logo"))
@@ -141,37 +145,64 @@ class LogInViewController: UIViewController {
     private func buttonAction() {
         
         signUpButton.action = { [weak self] in
-
+            
             if self!.emailTextField.text?.isEmpty == true || self!.passwordTextField.text?.isEmpty == true {
                 self?.alertToFillTextField()
             }
             
             if self?.signUp == true {
                 
-                self?.delegate?.signUp(email: self!.emailTextField.text!, password: self!.passwordTextField.text!) { result in
-                    if result == "Success registration" {
-                        let alert = UIAlertController(title: ~LocalizedKeys.done.rawValue, message: ~LocalizedKeys.successReg.rawValue, preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: ~LocalizedKeys.pleaseLogin.rawValue, style: .default))
-                        self?.present(alert, animated: true, completion: nil)
-                        self?.signUp = !self!.signUp
-                        
+                Auth.auth().createUser(withEmail: self!.emailTextField.text!, password: self!.passwordTextField.text!) { result, error in
+                    if error != nil {
+                        let result = error?.localizedDescription as? String
+                        if let res = result {
+                            self?.alertAuthorization(message: res)
+                        }
                     } else {
-                        self?.alertAuthorization(message: result)
+                        let uid = result?.user.uid ?? "unknownUser"
+                        
+                        self?.db.collection(uid).document("status").setData(["status": "status not set"]) { err in
+                            if let err = err {
+                                print("Error writing document: \(err)")
+                            } else {
+                                print("Document successfully written!")
+                            }
+                            let alert = UIAlertController(title: ~LocalizedKeys.successReg.rawValue, message: ~LocalizedKeys.enterNickAndLogin.rawValue, preferredStyle: .alert)
+                            alert.addTextField { textField in
+                                textField.placeholder = ~LocalizedKeys.enterNickname.rawValue
+                            }
+                            
+                            let okAction = UIAlertAction(title: "OK", style: .default) { action in
+                                if let nickname = alert.textFields?[0].text,
+                                   nickname != "" {
+                                    let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                                    changeRequest?.displayName = nickname
+                                    changeRequest?.commitChanges { error in
+                                        guard error == nil else {
+                                            print(error!.localizedDescription)
+                                            return
+                                        }
+                                    }
+                                }
+                            }
+                            alert.addAction(okAction)
+                            self?.present(alert, animated: true, completion: nil)
+                            self?.signUp = !self!.signUp
+                        }
                     }
                 }
             }
             
             if self?.signUp == false {
                 
-                self?.delegate?.checkCredentials(email: self!.emailTextField.text!, password: self!.passwordTextField.text!) { result in
-                    if result == "Success authorization" {
-                        
-                        
-                        let profileViewController = ProfileViewController()
-                        self?.navigationController?.pushViewController(profileViewController, animated: true)
-                        
+                Auth.auth().signIn(withEmail: self!.emailTextField.text!, password: self!.passwordTextField.text!) { result, error in
+                    if error != nil {
+                        let result = error?.localizedDescription as? String
+                        if let res = result {
+                            self?.alertAuthorization(message: res)
+                        }
                     } else {
-                        self?.alertAuthorization(message: result)
+                        self?.didSendEventClosure?(.login)
                     }
                 }
             }
@@ -282,5 +313,11 @@ extension UITextField {
     func indent(size:CGFloat) {
         self.leftView = UIView(frame: CGRect(x: self.frame.minX, y: self.frame.minY, width: size, height: self.frame.height))
         self.leftViewMode = .always
+    }
+}
+
+extension LoginViewController {
+    enum Event {
+        case login
     }
 }

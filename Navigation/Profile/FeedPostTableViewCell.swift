@@ -1,8 +1,10 @@
 
 import UIKit
+import Firebase
 import FirebaseStorage
+import FirebaseFirestore
 
-class PostTableViewCell: UITableViewCell {
+class FeedPostTableViewCell: UITableViewCell {
     
     private let storage = Storage.storage()
     
@@ -13,13 +15,13 @@ class PostTableViewCell: UITableViewCell {
     }()
     
     private var stringUrlImage = ""
+    private var authorUID = ""
     
     private let imagePostView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFill
         view.backgroundColor = .black
-        
         return view
     }()
     
@@ -29,6 +31,15 @@ class PostTableViewCell: UITableViewCell {
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.numberOfLines = 2
         label.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
+        return label
+    }()
+    
+    private let statusLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.numberOfLines = 2
+        label.textColor = UIColor.createColor(lightMode: .systemGray, darkMode: .lightGray)
         return label
     }()
     
@@ -74,12 +85,33 @@ class PostTableViewCell: UITableViewCell {
         }
     }
     
+    private func getStatus() {
+        let db = Firestore.firestore()
+        
+        db.collection(authorUID).getDocuments { querySnapshot, error in
+            guard error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+            guard let querySnapshot else {
+                print("querySnapshot = nil")
+                return
+            }
+            for document in querySnapshot.documents {
+                let status = document.data()["status"] as? String ?? ""
+                self.statusLabel.text = status
+            }
+        }
+    }
+    
     func setupCell(post: Post) {
+        authorUID = post.authorUID
         authorLabel.text = post.authorName
         descriptionLabel.text = post.description
         dateLabel.text = post.date.formatted()
         stringUrlImage = post.image
         getImage()
+        getStatus()
     }
     
     private func layout() {
@@ -99,9 +131,16 @@ class PostTableViewCell: UITableViewCell {
             authorLabel.trailingAnchor.constraint(equalTo: inCellView.trailingAnchor, constant: -16),
         ])
         
+        contentView.addSubview(statusLabel)
+        NSLayoutConstraint.activate([
+            statusLabel.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 4),
+            statusLabel.leadingAnchor.constraint(equalTo: inCellView.leadingAnchor, constant: 16),
+            statusLabel.trailingAnchor.constraint(equalTo: inCellView.trailingAnchor, constant: -16),
+        ])
+        
         contentView.addSubview(imagePostView)
         NSLayoutConstraint.activate([
-            imagePostView.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 12),
+            imagePostView.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 8),
             imagePostView.leadingAnchor.constraint(equalTo: inCellView.leadingAnchor),
             imagePostView.trailingAnchor.constraint(equalTo: inCellView.trailingAnchor),
             imagePostView.heightAnchor.constraint(equalTo: inCellView.widthAnchor),
@@ -123,4 +162,5 @@ class PostTableViewCell: UITableViewCell {
         ])
     }
 }
+
 

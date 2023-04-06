@@ -5,18 +5,22 @@ import FirebaseStorage
 
 class FeedViewController: UIViewController {
     
+    private enum LocalizedKeys: String {
+        case feed = "feed"
+    }
+    
     private let storage = Storage.storage().reference()
     
-    let uid = Auth.auth().currentUser?.uid ?? "uid"
+    private let uid = Auth.auth().currentUser?.uid ?? "uid"
     
-    let firestoreManager = FirestoreManager()
+    private let firestoreManager = FirestoreManager()
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: String(describing: PostTableViewCell.self))
+        tableView.register(FeedPostTableViewCell.self, forCellReuseIdentifier: String(describing: FeedPostTableViewCell.self))
         return tableView
     }()
     
@@ -24,21 +28,21 @@ class FeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
-//        navigationController?.navigationBar.isHidden = true
-        navigationItem.title = "Latest users posts"
-//        navigationItem.largeTitleDisplayMode = .always
-        
+        navigationItem.title = ~LocalizedKeys.feed.rawValue
+        let appearance = UITabBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = .systemBackground
+        navigationController?.tabBarController?.tabBar.standardAppearance = appearance
+        navigationController?.tabBarController?.tabBar.scrollEdgeAppearance = tabBarController?.tabBar.standardAppearance
         layout()
         view.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         reloadData()
-        
     }
     
-    func reloadData() {
+    private func reloadData() {
         firestoreManager.reloadPosts() { errorString in
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -64,7 +68,6 @@ extension FeedViewController: UITableViewDelegate {
     }
 }
 
-
 extension FeedViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         1
@@ -75,29 +78,10 @@ extension FeedViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PostTableViewCell.self), for: indexPath) as! PostTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: FeedPostTableViewCell.self), for: indexPath) as! FeedPostTableViewCell
             cell.setupCell(post: firestoreManager.posts[indexPath.row])
-            
             return cell
-        
     }
-    
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        "Latest users posts"
-//    }
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if indexPath.section == 0 {
-//            let photosViewController = PhotosViewController()
-//            //            present(photosViewController, animated: true)
-//            navigationController?.pushViewController(photosViewController, animated: true)
-//        }
-//        if indexPath.section == 1 {
-//            let createPostVC = CreatePostViewController()
-//            navigationController?.pushViewController(createPostVC, animated: true)
-//        }
-//    }
 }
 
 

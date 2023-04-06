@@ -1,22 +1,24 @@
-//
-//  CreatePostViewController.swift
-//  Navigation
-//
-//  Created by Ivan Mogutov on 28.03.2023.
-//
 
 import UIKit
 import Firebase
 import FirebaseFirestore
 import FirebaseStorage
 
-class CreatePostViewController: UIViewController {
-
-    let firestoreManager = FirestoreManager()
+class CreatePostViewController: UIViewController, UIGestureRecognizerDelegate {
     
-    let storage = Storage.storage().reference()
+    var didSendEventClosure: ((CreatePostViewController.Event) -> Void)?
     
-    var imageUrlString = ""
+    private enum LocalizedKeys: String {
+        case publishPost = "publishPost"
+        case addImage = "addImage"
+        case postText = "postText"
+    }
+    
+    private let firestoreManager = FirestoreManager()
+    
+    private let storage = Storage.storage().reference()
+    
+    private var imageUrlString = ""
     
     private lazy var previewImageView: UIImageView = {
         let imageView = UIImageView()
@@ -26,34 +28,36 @@ class CreatePostViewController: UIViewController {
     
     private lazy var userNameLabel: UILabel = {
         let label = UILabel()
-        label.text = Auth.auth().currentUser?.email ?? ""
+        label.text = ~LocalizedKeys.postText.rawValue
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         return label
     }()
     
-    private var descriptionTextField: UITextView = {
-        let textField = UITextView()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.isEditable = true
-//        textField.placeholder = "Введите текст вашего поста"
-//        textField.indent(size: 10)
-        textField.backgroundColor = .systemGray6
-        textField.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
-        textField.font = UIFont.systemFont(ofSize: 16)
-        textField.autocapitalizationType = .none
-        return textField
+    private var descriptionTextView: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.isEditable = true
+        textView.backgroundColor = .systemGray6
+        textView.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
+        textView.font = UIFont.systemFont(ofSize: 16)
+        textView.autocapitalizationType = .none
+        return textView
     }()
     
     private lazy var buttonPublishPost: CustomButton = {
-        let button = CustomButton(title: "Опубликовать пост", titleColor: .systemBlue)
+        let button = CustomButton(title: ~LocalizedKeys.publishPost.rawValue, titleColor: .white)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .systemBlue
+        button.layer.cornerRadius = 4
         return button
     }()
     
     private lazy var buttonAddImage: CustomButton = {
-        let button = CustomButton(title: "Добавить изображение", titleColor: .systemBlue)
+        let button = CustomButton(title: ~LocalizedKeys.addImage.rawValue, titleColor: .white)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .systemBlue
+        button.layer.cornerRadius = 4
         return button
     }()
     
@@ -65,53 +69,58 @@ class CreatePostViewController: UIViewController {
         present(imagePickerController, animated: true, completion: nil)
     }
     
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
     private func layout() {
         view.addSubview(userNameLabel)
         NSLayoutConstraint.activate([
             userNameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             userNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
-            ])
+        ])
         
-        view.addSubview(descriptionTextField)
+        view.addSubview(descriptionTextView)
         NSLayoutConstraint.activate([
-            descriptionTextField.topAnchor.constraint(equalTo: userNameLabel.bottomAnchor, constant: 20),
-            descriptionTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            descriptionTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            descriptionTextField.heightAnchor.constraint(equalToConstant: 200)
+            descriptionTextView.topAnchor.constraint(equalTo: userNameLabel.bottomAnchor, constant: 20),
+            descriptionTextView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            descriptionTextView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            descriptionTextView.heightAnchor.constraint(equalToConstant: 150)
         ])
         
         view.addSubview(buttonPublishPost)
         NSLayoutConstraint.activate([
-            buttonPublishPost.topAnchor.constraint(equalTo: descriptionTextField.bottomAnchor, constant: 20),
-            buttonPublishPost.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20)
+            buttonPublishPost.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: 20),
+            buttonPublishPost.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            buttonPublishPost.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
         ])
-        
-        view.addSubview(previewImageView)
-        NSLayoutConstraint.activate([
-            previewImageView.topAnchor.constraint(equalTo: buttonPublishPost.bottomAnchor, constant: 20),
-            previewImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            previewImageView.heightAnchor.constraint(equalToConstant: 50),
-            previewImageView.widthAnchor.constraint(equalToConstant: 50)
-            ])
         
         view.addSubview(buttonAddImage)
         NSLayoutConstraint.activate([
-            buttonAddImage.topAnchor.constraint(equalTo: previewImageView.bottomAnchor, constant: 20),
-            buttonAddImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20)
+            buttonAddImage.topAnchor.constraint(equalTo: buttonPublishPost.bottomAnchor, constant: 20),
+            buttonAddImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            buttonAddImage.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
+        ])
+        
+        let width = UIScreen.main.bounds.width
+        
+        view.addSubview(previewImageView)
+        NSLayoutConstraint.activate([
+            previewImageView.topAnchor.constraint(equalTo: buttonAddImage.bottomAnchor, constant: 20),
+            previewImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            previewImageView.heightAnchor.constraint(equalToConstant: width-80),
+            previewImageView.widthAnchor.constraint(equalToConstant: width-80)
         ])
     }
     
     func getImage() {
         
-        // Create a reference to the file you want to download
         let previewImageRef = storage.child("pictures/\(imageUrlString).png")
         
-        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
-        previewImageRef.getData(maxSize: 1 * 2048 * 2048) { data, error in
+        previewImageRef.getData(maxSize: 2 * 2048 * 2048) { data, error in
             if let error = error {
                 print(error.localizedDescription)
             } else {
-                // Data for "images/island.jpg" is returned
                 let image = UIImage(data: data!)
                 self.previewImageView.image = image
             }
@@ -120,12 +129,17 @@ class CreatePostViewController: UIViewController {
     
     private func buttonAction() {
         buttonPublishPost.action = { [weak self] in
-            let userEmail = Auth.auth().currentUser?.email ?? "Unknown Author"
-            let newPost = Post(author: userEmail, description: self?.descriptionTextField.text ?? "", date: Date(), image: self?.imageUrlString ?? "")
+            let userEmail = Auth.auth().currentUser?.email ?? "Unknown email"
+            let displayName = Auth.auth().currentUser?.displayName ?? "Unknown Author"
+            let uid = Auth.auth().currentUser?.uid ?? "Unknown UID"
+            
+            let newPost = Post(authorUID: uid, author: userEmail, authorName: displayName, description: self?.descriptionTextView.text ?? "", date: Date(), image: self?.imageUrlString ?? "")
             self!.firestoreManager.addPost(post: newPost) { errorString in
                 if errorString == nil {
-                    let profileViewController = ProfileViewController()
-                    self?.navigationController?.pushViewController(profileViewController, animated: true)
+                    self?.didSendEventClosure?(.creatingDone)
+                    
+                    //                    let profileViewController = ProfileViewController()
+                    //                    self?.navigationController?.pushViewController(profileViewController, animated: true)
                 }
             }
         }
@@ -144,7 +158,16 @@ class CreatePostViewController: UIViewController {
         view.backgroundColor = .white
         layout()
         buttonAction()
-        navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.isHidden = true
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(self.hideKeyboardOnSwipeDown))
+        swipeDown.delegate = self
+        swipeDown.direction =  UISwipeGestureRecognizer.Direction.down
+        view.addGestureRecognizer(swipeDown)
+    }
+    
+    @objc func hideKeyboardOnSwipeDown() {
+        view.endEditing(true)
     }
 }
 
@@ -153,9 +176,7 @@ extension CreatePostViewController: UINavigationControllerDelegate, UIImagePicke
         
         picker.dismiss(animated: true, completion: nil)
         guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
-//        photoImageView.image = image
         guard let imageData = image.pngData() else { return }
-        
         let uuid = UUID().uuidString
         self.imageUrlString = uuid
         
@@ -164,22 +185,28 @@ extension CreatePostViewController: UINavigationControllerDelegate, UIImagePicke
                 print("Ошибка загрузки")
                 return
             }
-//            self.storage.child("pictures/\(uuid).png").downloadURL(completion: { url, error in
-//                guard let url = url, error == nil else { return }
-//                
-//                let urlString = url.absoluteString
-//                print("Download URL: \(urlString)")
-//                
-//                self.imageUrlString = urlString
-//            })
-            print(uuid)
-            
         }
         
         uploadTask.resume()
+        
+        let child = SpinnerViewController()
+        addChild(child)
+        child.view.frame = view.frame
+        view.addSubview(child.view)
+        child.didMove(toParent: self)
+        
         uploadTask.observe(.success, handler: {_ in
             self.getImage()
+            child.willMove(toParent: nil)
+            child.view.removeFromSuperview()
+            child.removeFromParent()
         })
+    }
+}
+
+extension CreatePostViewController {
+    enum Event {
+        case creatingDone
     }
 }
 

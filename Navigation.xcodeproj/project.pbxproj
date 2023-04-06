@@ -8,28 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		2C0E1D5428527D68001C936D /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0E1D5328527D68001C936D /* PostTableViewCell.swift */; };
-		2C2FCC262880B4F500E381FE /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCC252880B4F500E381FE /* LoginInspector.swift */; };
-		2C2FCC2828816E3400E381FE /* LoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCC2728816E3400E381FE /* LoginFactory.swift */; };
-		2C3031CC29769EB200A88961 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3031CB29769EB200A88961 /* MapViewController.swift */; };
 		2C3497DB2937C4AA0075B0E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C3497DA2937C4A90075B0E6 /* GoogleService-Info.plist */; };
 		2C3EF5DA2836BC89003B6AA7 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3EF5D92836BC89003B6AA7 /* ProfileHeaderView.swift */; };
-		2C74772D284940AF007FD6A8 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C74772C284940AF007FD6A8 /* LogInViewController.swift */; };
+		2C74772D284940AF007FD6A8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C74772C284940AF007FD6A8 /* LoginViewController.swift */; };
 		2CAC8C91280C5C1100483900 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC8C90280C5C1100483900 /* AppDelegate.swift */; };
 		2CAC8C93280C5C1100483900 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC8C92280C5C1100483900 /* SceneDelegate.swift */; };
 		2CAC8C9A280C5C1400483900 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CAC8C99280C5C1400483900 /* Assets.xcassets */; };
 		2CAC8C9D280C5C1400483900 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CAC8C9B280C5C1400483900 /* LaunchScreen.storyboard */; };
 		2CAC8CA7280C606100483900 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC8CA6280C606100483900 /* ProfileViewController.swift */; };
-		2CB03C0A28620D9700308EEA /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB03C0928620D9700308EEA /* PhotosTableViewCell.swift */; };
-		2CB03C0C2862124900308EEA /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB03C0B2862124900308EEA /* PhotosViewController.swift */; };
-		2CB03C0E286212B700308EEA /* PhotosCollectioViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB03C0D286212B700308EEA /* PhotosCollectioViewCell.swift */; };
-		2CB03C10286212E400308EEA /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB03C0F286212E400308EEA /* Photos.swift */; };
 		2CF2078B289D0A70000034CC /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2078A289D0A70000034CC /* CustomButton.swift */; };
 		2CF2078D28A2C37E000034CC /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2078C28A2C37E000034CC /* CustomTextField.swift */; };
-		2CF2079228AB8E4D000034CC /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2079128AB8E4D000034CC /* MainCoordinator.swift */; };
-		2CF2079528AB8F54000034CC /* MainTabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2079428AB8F54000034CC /* MainTabbarViewController.swift */; };
-		2CF2079828AB8FB3000034CC /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2079728AB8FB3000034CC /* Factory.swift */; };
 		57218781298A87460019DE24 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57218780298A87460019DE24 /* UIColorExtension.swift */; };
-		576455952992D5FC00777FF4 /* LocalNotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576455942992D5FC00777FF4 /* LocalNotificationsService.swift */; };
 		578F56E329CE0CF7004EAD38 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 578F56E229CE0CF7004EAD38 /* FirebaseAuth */; };
 		578F56E529CE0CF7004EAD38 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 578F56E429CE0CF7004EAD38 /* FirebaseFirestore */; };
 		578F56E729CE0CF7004EAD38 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 578F56E629CE0CF7004EAD38 /* FirebaseStorage */; };
@@ -39,7 +28,12 @@
 		57B9FD8A29D60703005B56B8 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B9FD8929D60703005B56B8 /* FeedViewController.swift */; };
 		57C8CBD6298E7ACA0081CF51 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C8CBD5298E7ACA0081CF51 /* AuthenticationViewController.swift */; };
 		57C8CBD8298E7BE10081CF51 /* LocalAuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C8CBD7298E7BE10081CF51 /* LocalAuthorizationService.swift */; };
-		57DD17A329D46592002D3C73 /* INSPhotoGallery in Frameworks */ = {isa = PBXBuildFile; productRef = 57DD17A229D46592002D3C73 /* INSPhotoGallery */; };
+		57E0C98729D842BB00E7B2E7 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E0C98629D842BB00E7B2E7 /* AppCoordinator.swift */; };
+		57E0C98929D8430400E7B2E7 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E0C98829D8430400E7B2E7 /* LoginCoordinator.swift */; };
+		57E0C98B29D8439700E7B2E7 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E0C98A29D8439700E7B2E7 /* Coordinator.swift */; };
+		57E0C98D29D843F500E7B2E7 /* TabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E0C98C29D843F500E7B2E7 /* TabCoordinator.swift */; };
+		57E0C98F29D9D2A400E7B2E7 /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E0C98E29D9D2A400E7B2E7 /* SpinnerViewController.swift */; };
+		57E0C99129DD6B6000E7B2E7 /* FeedPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E0C99029DD6B6000E7B2E7 /* FeedPostTableViewCell.swift */; };
 		57EDE2452981343100A59459 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 57EDE2472981343100A59459 /* Localizable.strings */; };
 		57EDE2492981386B00A59459 /* LocalizationShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EDE2482981386B00A59459 /* LocalizationShortcut.swift */; };
 /* End PBXBuildFile section */
@@ -59,12 +53,9 @@
 
 /* Begin PBXFileReference section */
 		2C0E1D5328527D68001C936D /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
-		2C2FCC252880B4F500E381FE /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
-		2C2FCC2728816E3400E381FE /* LoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactory.swift; sourceTree = "<group>"; };
-		2C3031CB29769EB200A88961 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		2C3497DA2937C4A90075B0E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2C3EF5D92836BC89003B6AA7 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
-		2C74772C284940AF007FD6A8 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		2C74772C284940AF007FD6A8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2CAC8C8D280C5C1100483900 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CAC8C90280C5C1100483900 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CAC8C92280C5C1100483900 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,23 +63,21 @@
 		2CAC8C9C280C5C1400483900 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2CAC8C9E280C5C1400483900 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CAC8CA6280C606100483900 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		2CB03C0928620D9700308EEA /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
-		2CB03C0B2862124900308EEA /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
-		2CB03C0D286212B700308EEA /* PhotosCollectioViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectioViewCell.swift; sourceTree = "<group>"; };
-		2CB03C0F286212E400308EEA /* Photos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
 		2CF2078A289D0A70000034CC /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		2CF2078C28A2C37E000034CC /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
-		2CF2079128AB8E4D000034CC /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
-		2CF2079428AB8F54000034CC /* MainTabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarViewController.swift; sourceTree = "<group>"; };
-		2CF2079728AB8FB3000034CC /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		57218780298A87460019DE24 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
-		576455942992D5FC00777FF4 /* LocalNotificationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationsService.swift; sourceTree = "<group>"; };
 		578F56EA29D2046D004EAD38 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		578F56EC29D21323004EAD38 /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		578F56EE29D2DC32004EAD38 /* CreatePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
 		57B9FD8929D60703005B56B8 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		57C8CBD5298E7ACA0081CF51 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		57C8CBD7298E7BE10081CF51 /* LocalAuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAuthorizationService.swift; sourceTree = "<group>"; };
+		57E0C98629D842BB00E7B2E7 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		57E0C98829D8430400E7B2E7 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
+		57E0C98A29D8439700E7B2E7 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		57E0C98C29D843F500E7B2E7 /* TabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabCoordinator.swift; sourceTree = "<group>"; };
+		57E0C98E29D9D2A400E7B2E7 /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
+		57E0C99029DD6B6000E7B2E7 /* FeedPostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPostTableViewCell.swift; sourceTree = "<group>"; };
 		57EDE242298133AC00A59459 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		57EDE2462981343100A59459 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		57EDE2482981386B00A59459 /* LocalizationShortcut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationShortcut.swift; sourceTree = "<group>"; };
@@ -103,7 +92,6 @@
 				578F56E529CE0CF7004EAD38 /* FirebaseFirestore in Frameworks */,
 				578F56E329CE0CF7004EAD38 /* FirebaseAuth in Frameworks */,
 				578F56E729CE0CF7004EAD38 /* FirebaseStorage in Frameworks */,
-				57DD17A329D46592002D3C73 /* INSPhotoGallery in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,16 +101,12 @@
 		2C3EF5DB2836BCA1003B6AA7 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				2C74772C284940AF007FD6A8 /* LogInViewController.swift */,
-				2CAC8CA6280C606100483900 /* ProfileViewController.swift */,
-				57B9FD8929D60703005B56B8 /* FeedViewController.swift */,
-				578F56EE29D2DC32004EAD38 /* CreatePostViewController.swift */,
 				578F56EC29D21323004EAD38 /* Cell.swift */,
+				578F56EE29D2DC32004EAD38 /* CreatePostViewController.swift */,
 				2C3EF5D92836BC89003B6AA7 /* ProfileHeaderView.swift */,
+				2CAC8CA6280C606100483900 /* ProfileViewController.swift */,
 				2C0E1D5328527D68001C936D /* PostTableViewCell.swift */,
-				2CB03C0928620D9700308EEA /* PhotosTableViewCell.swift */,
-				2CB03C0D286212B700308EEA /* PhotosCollectioViewCell.swift */,
-				2CB03C0B2862124900308EEA /* PhotosViewController.swift */,
+				57E0C99029DD6B6000E7B2E7 /* FeedPostTableViewCell.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -148,14 +132,12 @@
 			children = (
 				57B9FD8629D5AC06005B56B8 /* CustomElements */,
 				57B9FD8529D5ABDD005B56B8 /* Services */,
-				2CF2079628AB8F99000034CC /* Factory */,
 				2CF2079028AB8E31000034CC /* Coordinator */,
-				2C2FCC252880B4F500E381FE /* LoginInspector.swift */,
 				57C8CBD5298E7ACA0081CF51 /* AuthenticationViewController.swift */,
-				2C3031CB29769EB200A88961 /* MapViewController.swift */,
+				2C74772C284940AF007FD6A8 /* LoginViewController.swift */,
+				57B9FD8929D60703005B56B8 /* FeedViewController.swift */,
 				57B9FD8429D5AAF6005B56B8 /* Delegate */,
 				2C3EF5DB2836BCA1003B6AA7 /* Profile */,
-				2CB03C0F286212E400308EEA /* Photos.swift */,
 				2CAC8C99280C5C1400483900 /* Assets.xcassets */,
 				2CAC8C9B280C5C1400483900 /* LaunchScreen.storyboard */,
 				2CAC8C9E280C5C1400483900 /* Info.plist */,
@@ -168,19 +150,12 @@
 		2CF2079028AB8E31000034CC /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
-				2CF2079428AB8F54000034CC /* MainTabbarViewController.swift */,
-				2CF2079128AB8E4D000034CC /* MainCoordinator.swift */,
+				57E0C98629D842BB00E7B2E7 /* AppCoordinator.swift */,
+				57E0C98A29D8439700E7B2E7 /* Coordinator.swift */,
+				57E0C98829D8430400E7B2E7 /* LoginCoordinator.swift */,
+				57E0C98C29D843F500E7B2E7 /* TabCoordinator.swift */,
 			);
 			path = Coordinator;
-			sourceTree = "<group>";
-		};
-		2CF2079628AB8F99000034CC /* Factory */ = {
-			isa = PBXGroup;
-			children = (
-				2CF2079728AB8FB3000034CC /* Factory.swift */,
-				2C2FCC2728816E3400E381FE /* LoginFactory.swift */,
-			);
-			path = Factory;
 			sourceTree = "<group>";
 		};
 		57B9FD8429D5AAF6005B56B8 /* Delegate */ = {
@@ -195,7 +170,6 @@
 		57B9FD8529D5ABDD005B56B8 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				576455942992D5FC00777FF4 /* LocalNotificationsService.swift */,
 				57C8CBD7298E7BE10081CF51 /* LocalAuthorizationService.swift */,
 				578F56EA29D2046D004EAD38 /* FirestoreManager.swift */,
 			);
@@ -205,6 +179,7 @@
 		57B9FD8629D5AC06005B56B8 /* CustomElements */ = {
 			isa = PBXGroup;
 			children = (
+				57E0C98E29D9D2A400E7B2E7 /* SpinnerViewController.swift */,
 				57218780298A87460019DE24 /* UIColorExtension.swift */,
 				57EDE2482981386B00A59459 /* LocalizationShortcut.swift */,
 				2CF2078A289D0A70000034CC /* CustomButton.swift */,
@@ -234,7 +209,6 @@
 				578F56E229CE0CF7004EAD38 /* FirebaseAuth */,
 				578F56E429CE0CF7004EAD38 /* FirebaseFirestore */,
 				578F56E629CE0CF7004EAD38 /* FirebaseStorage */,
-				57DD17A229D46592002D3C73 /* INSPhotoGallery */,
 			);
 			productName = Navigation;
 			productReference = 2CAC8C8D280C5C1100483900 /* Navigation.app */;
@@ -267,7 +241,6 @@
 			mainGroup = 2CAC8C84280C5C1100483900;
 			packageReferences = (
 				578F56E129CE0CF7004EAD38 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				57DD17A129D46592002D3C73 /* XCRemoteSwiftPackageReference "INSPhotoGallery" */,
 			);
 			productRefGroup = 2CAC8C8E280C5C1100483900 /* Products */;
 			projectDirPath = "";
@@ -297,30 +270,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C3031CC29769EB200A88961 /* MapViewController.swift in Sources */,
 				57B9FD8A29D60703005B56B8 /* FeedViewController.swift in Sources */,
+				57E0C98B29D8439700E7B2E7 /* Coordinator.swift in Sources */,
 				578F56EF29D2DC32004EAD38 /* CreatePostViewController.swift in Sources */,
-				2CB03C0A28620D9700308EEA /* PhotosTableViewCell.swift in Sources */,
-				2CF2079228AB8E4D000034CC /* MainCoordinator.swift in Sources */,
 				578F56EB29D2046D004EAD38 /* FirestoreManager.swift in Sources */,
-				2CB03C0C2862124900308EEA /* PhotosViewController.swift in Sources */,
 				2C0E1D5428527D68001C936D /* PostTableViewCell.swift in Sources */,
-				2C2FCC262880B4F500E381FE /* LoginInspector.swift in Sources */,
 				57218781298A87460019DE24 /* UIColorExtension.swift in Sources */,
 				2CAC8C91280C5C1100483900 /* AppDelegate.swift in Sources */,
-				2CB03C0E286212B700308EEA /* PhotosCollectioViewCell.swift in Sources */,
 				2CAC8CA7280C606100483900 /* ProfileViewController.swift in Sources */,
 				2CF2078B289D0A70000034CC /* CustomButton.swift in Sources */,
-				576455952992D5FC00777FF4 /* LocalNotificationsService.swift in Sources */,
+				57E0C99129DD6B6000E7B2E7 /* FeedPostTableViewCell.swift in Sources */,
 				2CF2078D28A2C37E000034CC /* CustomTextField.swift in Sources */,
-				2CF2079528AB8F54000034CC /* MainTabbarViewController.swift in Sources */,
+				57E0C98D29D843F500E7B2E7 /* TabCoordinator.swift in Sources */,
 				2C3EF5DA2836BC89003B6AA7 /* ProfileHeaderView.swift in Sources */,
-				2CF2079828AB8FB3000034CC /* Factory.swift in Sources */,
-				2CB03C10286212E400308EEA /* Photos.swift in Sources */,
-				2C2FCC2828816E3400E381FE /* LoginFactory.swift in Sources */,
+				57E0C98929D8430400E7B2E7 /* LoginCoordinator.swift in Sources */,
+				57E0C98729D842BB00E7B2E7 /* AppCoordinator.swift in Sources */,
+				57E0C98F29D9D2A400E7B2E7 /* SpinnerViewController.swift in Sources */,
 				57C8CBD8298E7BE10081CF51 /* LocalAuthorizationService.swift in Sources */,
 				57EDE2492981386B00A59459 /* LocalizationShortcut.swift in Sources */,
-				2C74772D284940AF007FD6A8 /* LogInViewController.swift in Sources */,
+				2C74772D284940AF007FD6A8 /* LoginViewController.swift in Sources */,
 				57C8CBD6298E7ACA0081CF51 /* AuthenticationViewController.swift in Sources */,
 				2CAC8C93280C5C1100483900 /* SceneDelegate.swift in Sources */,
 				578F56ED29D21323004EAD38 /* Cell.swift in Sources */,
@@ -403,6 +371,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = NO;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -459,6 +428,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = NO;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -565,14 +535,6 @@
 				minimumVersion = 9.0.0;
 			};
 		};
-		57DD17A129D46592002D3C73 /* XCRemoteSwiftPackageReference "INSPhotoGallery" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/m1entus/INSPhotoGallery";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -590,11 +552,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 578F56E129CE0CF7004EAD38 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
-		};
-		57DD17A229D46592002D3C73 /* INSPhotoGallery */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 57DD17A129D46592002D3C73 /* XCRemoteSwiftPackageReference "INSPhotoGallery" */;
-			productName = INSPhotoGallery;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

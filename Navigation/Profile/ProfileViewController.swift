@@ -3,15 +3,23 @@ import UIKit
 import Firebase
 import FirebaseStorage
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UIGestureRecognizerDelegate {
+    
+    private enum LocalizedKeys: String {
+        case publicFirstPost = "publicFirstPost"
+        case numberOfPosts = "numberOfPosts"
+        case publicMore = "publicMore"
+    }
+    
+    var didSendEventClosure: ((ProfileViewController.Event) -> Void)?
     
     private let storage = Storage.storage().reference()
     
-    let uid = Auth.auth().currentUser?.uid ?? "uid"
+    private let uid = Auth.auth().currentUser?.uid ?? "uid"
     
-    let profileHeaderView = ProfileHeaderView()
+    private let profileHeaderView = ProfileHeaderView()
     
-    let firestoreManager = FirestoreManager()
+    private let firestoreManager = FirestoreManager()
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -19,7 +27,7 @@ class ProfileViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: String(describing: PostTableViewCell.self))
-        tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: String(describing: PhotosTableViewCell.self))
+        
         tableView.register(Cell.self, forCellReuseIdentifier: "Cell")
         return tableView
     }()
@@ -46,8 +54,7 @@ class ProfileViewController: UIViewController {
         } catch {
             print(error.localizedDescription)
         }
-        let loginVC = LogInViewController()
-        self.navigationController?.pushViewController(loginVC, animated: true)
+        didSendEventClosure?(.logout)
     }
     
     override func viewDidLoad() {
@@ -56,14 +63,22 @@ class ProfileViewController: UIViewController {
         tabBarController?.tabBar.isHidden = false
         layout()
         view.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(self.hideKeyboardOnSwipeDown))
+        swipeDown.delegate = self
+        swipeDown.direction =  UISwipeGestureRecognizer.Direction.down
+        view.addGestureRecognizer(swipeDown)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         reloadData()
-        
     }
     
-    func reloadData() {
+    @objc func hideKeyboardOnSwipeDown() {
+        view.endEditing(true)
+    }
+    
+    private func reloadData() {
         firestoreManager.reloadPosts() { errorString in
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -76,7 +91,6 @@ class ProfileViewController: UIViewController {
         view.addSubview(profileHeaderView)
         NSLayoutConstraint.activate([
             profileHeaderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            //            profileHeaderView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             profileHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             profileHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
@@ -92,14 +106,12 @@ class ProfileViewController: UIViewController {
         view.addSubview(logoutButton)
         NSLayoutConstraint.activate([
             logoutButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            //            logoutButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             logoutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
         
         view.addSubview(changeAvatarButton)
         NSLayoutConstraint.activate([
             changeAvatarButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
-            //            logoutButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             changeAvatarButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
         ])
     }
@@ -111,29 +123,17 @@ class ProfileViewController: UIViewController {
         imagePickerController.allowsEditing = true
         present(imagePickerController, animated: true, completion: nil)
     }
-    
 }
 
 extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         UITableView.automaticDimension
     }
-    
-    //    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    //        if section == 0 {
-    //            let header = ProfileHeaderView()
-    //
-    //            return header
-    //        } else {
-    //            return nil
-    //        }
-    //    }
 }
-
 
 extension ProfileViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        3
+        2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -141,65 +141,66 @@ extension ProfileViewController: UITableViewDataSource {
             return 1
         }
         if section == 1 {
-            return 1
-        }
-        
-        if section == 2 {
-            
             let user = Auth.auth().currentUser?.email ?? ""
             let myPosts = firestoreManager.posts.filter { $0.author == user }
-            
             if myPosts.count != 0 {
                 return myPosts.count
             }
         }
-        return 1
+        return 0
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let user = Auth.auth().currentUser?.email ?? ""
+            let myPosts = firestoreManager.posts.filter { $0.author == user }
+            let post = myPosts[indexPath.row]
+            firestoreManager.deletePost(post: post) { error in
+                self.firestoreManager.reloadPosts() { errorString in
+                    if error == nil {
+                        DispatchQueue.main.async {
+                            self.tableView.deleteRows(at: [indexPath], with: .fade)
+                        }
+                    }
+                }
+            }
+        }
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PhotosTableViewCell.self), for: indexPath) as! PhotosTableViewCell
-            return cell
-        }
-        if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-            
-            cell.textLabel?.text = "Добавить пост"
+            let user = Auth.auth().currentUser?.email ?? ""
+            let myPosts = firestoreManager.posts.filter { $0.author == user }
+            if myPosts.count == 0 {
+                cell.textLabel?.text = ~LocalizedKeys.publicFirstPost.rawValue
+            } else {
+                cell.textLabel?.text = "\(~LocalizedKeys.numberOfPosts.rawValue) \(myPosts.count). \(~LocalizedKeys.publicMore.rawValue)"
+            }
             return cell
         } else {
-            //            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-            //            let post = firestoreManager.posts[indexPath.row]
-            //            let dateFormatter = DateFormatter()
-            //            cell.textLabel?.text = "\(post.author) - \(post.description)"
-            //            cell.detailTextLabel?.text = dateFormatter.string(from: post.date)
-            //            return cell
-            
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PostTableViewCell.self), for: indexPath) as! PostTableViewCell
             let user = Auth.auth().currentUser?.email ?? ""
             let myPosts = firestoreManager.posts.filter { $0.author == user }
             if myPosts.count != 0 {
                 cell.setupCell(post: myPosts[indexPath.row])
-                
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-                
-                cell.textLabel?.text = "Добавьте свой первый пост"
-                
+                cell.textLabel?.text = ~LocalizedKeys.publicFirstPost.rawValue
             }
             return cell
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         if indexPath.section == 0 {
-            let photosViewController = PhotosViewController()
-            //            present(photosViewController, animated: true)
-            navigationController?.pushViewController(photosViewController, animated: true)
-        }
-        if indexPath.section == 1 {
-            let createPostVC = CreatePostViewController()
-            navigationController?.pushViewController(createPostVC, animated: true)
+            didSendEventClosure?(.createPost)
         }
     }
 }
@@ -209,11 +210,7 @@ extension ProfileViewController: UINavigationControllerDelegate, UIImagePickerCo
         
         picker.dismiss(animated: true, completion: nil)
         guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
-        //        photoImageView.image = image
         guard let imageData = image.pngData() else { return }
-        
-        
-        
         
         let uploadTask = storage.child("avatars/\(uid)/avatar.png").putData(imageData, metadata: nil, completion: { _, error in
             guard error == nil else {
@@ -226,9 +223,14 @@ extension ProfileViewController: UINavigationControllerDelegate, UIImagePickerCo
         uploadTask.observe(.success, handler: {_ in
             
             NotificationCenter.default.post(name: NSNotification.Name("avatarLoaded"), object: nil)
-            
         })
-        
+    }
+}
+
+extension ProfileViewController {
+    enum Event {
+        case logout
+        case createPost
     }
 }
 
