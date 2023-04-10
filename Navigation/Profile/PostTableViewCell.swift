@@ -19,7 +19,6 @@ class PostTableViewCell: UITableViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFill
         view.backgroundColor = .black
-        
         return view
     }()
     
@@ -53,7 +52,6 @@ class PostTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         layout()
-//        getImage()
     }
     
     required init?(coder: NSCoder) {
@@ -83,7 +81,6 @@ class PostTableViewCell: UITableViewCell {
     }
     
     private func layout() {
-        
         contentView.addSubview(inCellView)
         NSLayoutConstraint.activate([
             inCellView.topAnchor.constraint(equalTo: contentView.topAnchor),

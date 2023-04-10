@@ -60,7 +60,6 @@ class ProfileViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
-        tabBarController?.tabBar.isHidden = false
         layout()
         view.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
         
@@ -74,7 +73,7 @@ class ProfileViewController: UIViewController, UIGestureRecognizerDelegate {
         reloadData()
     }
     
-    @objc func hideKeyboardOnSwipeDown() {
+    @objc private func hideKeyboardOnSwipeDown() {
         view.endEditing(true)
     }
     

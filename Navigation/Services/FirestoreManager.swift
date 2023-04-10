@@ -1,9 +1,3 @@
-//
-//  FirestoreManager.swift
-//  Navigation
-//
-//  Created by Ivan Mogutov on 27.03.2023.
-//
 
 import Foundation
 import FirebaseFirestore
@@ -49,7 +43,6 @@ class Status {
         self.uid = uid
         self.status = status
     }
-    
 }
 
 class FirestoreManager {
@@ -57,8 +50,6 @@ class FirestoreManager {
     var firebaseDB = Firestore.firestore()
     
     var posts: [Post] = []
-    
-    
     
     func reloadPosts(completion: @escaping (_ errorString: String?)->() ) {
         firebaseDB.collection("posts").getDocuments { querySnaphot, error in

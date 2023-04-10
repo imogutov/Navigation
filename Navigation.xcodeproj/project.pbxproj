@@ -450,12 +450,10 @@
 				DEVELOPMENT_TEAM = 6WA78UBCUF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Navigation/Info.plist;
-				INFOPLIST_KEY_NSFaceIDUsageDescription = "Please, allow Face ID";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Разреши доступ к геолокации";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Разреши доступ к геолокации";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Разреши доступ к геолокации";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Для быстрой авторизации разрешите Face ID";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow access to Photo Library";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -463,7 +461,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "-.Navigation";
+				PRODUCT_BUNDLE_IDENTIFIER = diploma.Navigation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -482,12 +480,10 @@
 				DEVELOPMENT_TEAM = 6WA78UBCUF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Navigation/Info.plist;
-				INFOPLIST_KEY_NSFaceIDUsageDescription = "Please, allow Face ID";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Разреши доступ к геолокации";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Разреши доступ к геолокации";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Разреши доступ к геолокации";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Для быстрой авторизации разрешите Face ID";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow access to Photo Library";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -495,7 +491,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "-.Navigation";
+				PRODUCT_BUNDLE_IDENTIFIER = diploma.Navigation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

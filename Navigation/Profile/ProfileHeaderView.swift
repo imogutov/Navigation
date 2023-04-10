@@ -8,7 +8,7 @@ import FirebaseFirestore
 
 class ProfileHeaderView: UIView {
     
-    private let userID = Auth.auth().currentUser?.displayName ?? "123333@we.ru"
+    private let userID = Auth.auth().currentUser?.displayName ?? "User Name"
     
     private let uid = Auth.auth().currentUser?.uid ?? "mHd5qbFLKKTtEVRm3buLGEni9Jm2"
     
@@ -18,7 +18,7 @@ class ProfileHeaderView: UIView {
         
         let avatarRef = storage.reference().child("avatars/\(uid)/avatar.png")
         
-        avatarRef.getData(maxSize: 1 * 2048 * 2048) { data, error in
+        avatarRef.getData(maxSize: 2 * 2048 * 2048) { data, error in
             if let error = error {
                 print(error.localizedDescription)
             } else {
@@ -82,14 +82,10 @@ class ProfileHeaderView: UIView {
         setStatusButton.backgroundColor = .systemBlue
         setStatusButton.translatesAutoresizingMaskIntoConstraints = false
         setStatusButton.layer.cornerRadius = 4
-//        setStatusButton.layer.shadowOffset = CGSize(width: 4, height: 4)
-//        setStatusButton.layer.shadowRadius = 4
-//        setStatusButton.layer.shadowColor = UIColor.black.cgColor
-//        setStatusButton.layer.shadowOpacity = 0.7
         return setStatusButton
     }()
     
-    func layout() {
+    private func layout() {
         
         addSubview(avatarImageView)
         addSubview(fullNameLabel)
@@ -136,7 +132,7 @@ class ProfileHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func loadStatus() {
+    private func loadStatus() {
         
         let db = Firestore.firestore()
         
@@ -156,7 +152,7 @@ class ProfileHeaderView: UIView {
         }
     }
     
-    func buttonAction() {
+    private func buttonAction() {
         setStatusButton.action = { [weak self] in
             let status = self?.statusTextField.text! ?? ""
             

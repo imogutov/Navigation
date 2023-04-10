@@ -34,7 +34,7 @@ class CreatePostViewController: UIViewController, UIGestureRecognizerDelegate {
         return label
     }()
     
-    private var descriptionTextView: UITextView = {
+    private lazy var descriptionTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.isEditable = true
@@ -113,7 +113,7 @@ class CreatePostViewController: UIViewController, UIGestureRecognizerDelegate {
         ])
     }
     
-    func getImage() {
+    private func getImage() {
         
         let previewImageRef = storage.child("pictures/\(imageUrlString).png")
         
@@ -136,10 +136,9 @@ class CreatePostViewController: UIViewController, UIGestureRecognizerDelegate {
             let newPost = Post(authorUID: uid, author: userEmail, authorName: displayName, description: self?.descriptionTextView.text ?? "", date: Date(), image: self?.imageUrlString ?? "")
             self!.firestoreManager.addPost(post: newPost) { errorString in
                 if errorString == nil {
+                    self?.descriptionTextView.text = ""
+                    self?.previewImageView.image = nil
                     self?.didSendEventClosure?(.creatingDone)
-                    
-                    //                    let profileViewController = ProfileViewController()
-                    //                    self?.navigationController?.pushViewController(profileViewController, animated: true)
                 }
             }
         }
@@ -201,6 +200,7 @@ extension CreatePostViewController: UINavigationControllerDelegate, UIImagePicke
             child.view.removeFromSuperview()
             child.removeFromParent()
         })
+        
     }
 }
 

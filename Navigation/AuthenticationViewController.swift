@@ -15,7 +15,7 @@ class AuthenticationViewController: UIViewController {
             guard canEvaluate else {
                 alert(
                     title: "Error",
-                    message: canEvaluateError?.localizedDescription ?? "Face ID/Touch ID may not be configured",
+                    message: canEvaluateError?.localizedDescription ?? "Face ID/Touch ID may not be configured, try again",
                     okActionTitle: "OK!"
                 )
                 return
@@ -54,7 +54,7 @@ class AuthenticationViewController: UIViewController {
             )
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground

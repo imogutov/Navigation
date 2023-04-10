@@ -23,6 +23,7 @@ class LoginViewController: UIViewController {
         case pleaseLogin = "pleaseLogin"
         case enterNickname = "enterNickname"
         case enterNickAndLogin = "enterNickAndLogin"
+        case statusNotSet = "statusNotSet"
     }
     
     private var signUp: Bool = true {
@@ -49,15 +50,6 @@ class LoginViewController: UIViewController {
     }()
     
     private let stackView = UIStackView()
-    
-    private func setupLogoIV() {
-        let logoImageView = logoImageView
-        contentView.addSubview(logoImageView)
-        logoImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        logoImageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        logoImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        logoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 120).isActive = true
-    }
     
     private var emailTextField: UITextField = {
         let emailTextField = UITextField()
@@ -142,6 +134,15 @@ class LoginViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    private func setupLogoIV() {
+        let logoImageView = logoImageView
+        contentView.addSubview(logoImageView)
+        logoImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        logoImageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        logoImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        logoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 120).isActive = true
+    }
+    
     private func buttonAction() {
         
         signUpButton.action = { [weak self] in
@@ -161,7 +162,7 @@ class LoginViewController: UIViewController {
                     } else {
                         let uid = result?.user.uid ?? "unknownUser"
                         
-                        self?.db.collection(uid).document("status").setData(["status": "status not set"]) { err in
+                        self?.db.collection(uid).document("status").setData(["status": ~LocalizedKeys.statusNotSet.rawValue]) { err in
                             if let err = err {
                                 print("Error writing document: \(err)")
                             } else {

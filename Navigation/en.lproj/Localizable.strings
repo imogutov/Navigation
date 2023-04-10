@@ -36,3 +36,5 @@
 "publishPost" = "Publish a post";
 "addImage" = "Add an image";
 "postText" = "The text of the post";
+"statusNotSet" = "Status not set";
+"creatingPost" = "Creating a post";

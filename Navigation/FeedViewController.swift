@@ -24,16 +24,10 @@ class FeedViewController: UIViewController {
         return tableView
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = ~LocalizedKeys.feed.rawValue
-        let appearance = UITabBarAppearance()
-            appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = .systemBackground
-        navigationController?.tabBarController?.tabBar.standardAppearance = appearance
-        navigationController?.tabBarController?.tabBar.scrollEdgeAppearance = tabBarController?.tabBar.standardAppearance
         layout()
         view.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
     }
@@ -51,7 +45,6 @@ class FeedViewController: UIViewController {
     }
     
     private func layout() {
-        
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),

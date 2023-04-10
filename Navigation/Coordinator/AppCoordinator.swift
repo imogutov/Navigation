@@ -1,10 +1,3 @@
-//
-//  AppCoordinator.swift
-//  TabBarController+Coordinator
-//
-//  Created by Vitalii Zaitcev on 6/18/20.
-//  Copyright © 2020 Vitalii Zaitcev. All rights reserved.
-//
 
 import UIKit
 import Firebase

@@ -64,7 +64,6 @@ class FeedPostTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         layout()
-//        getImage()
     }
     
     required init?(coder: NSCoder) {
@@ -75,7 +74,7 @@ class FeedPostTableViewCell: UITableViewCell {
         
         let avatarRef = storage.reference().child("pictures/\(stringUrlImage).png")
         
-        avatarRef.getData(maxSize: 1 * 2048 * 2048) { data, error in
+        avatarRef.getData(maxSize: 2 * 2048 * 2048) { data, error in
             if let error = error {
                 print(error.localizedDescription)
             } else {

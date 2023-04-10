@@ -1,16 +1,10 @@
-//
-//  TabCoordinator.swift
-//  TabBarController+Coordinator
-//
-//  Created by Vitalii Zaitcev on 6/18/20.
-//  Copyright © 2020 Vitalii Zaitcev. All rights reserved.
-//
 
 import UIKit
 
 private enum LocalizedKeys: String {
     case feed = "feed"
     case profile = "profile"
+    case creatingPost = "creatingPost"
 }
 
 enum TabBarPage {
@@ -38,7 +32,7 @@ enum TabBarPage {
         case .profile:
             return ~LocalizedKeys.profile.rawValue
         case .createPost:
-            return "Creating post"
+            return ~LocalizedKeys.creatingPost.rawValue
         }
     }
 
@@ -63,12 +57,6 @@ enum TabBarPage {
             return "plus.rectangle"
         }
     }
-
-    // Add tab icon value
-    
-    // Add tab icon selected / deselected color
-    
-    // etc
 }
 
 
@@ -100,11 +88,9 @@ class TabCoordinator: NSObject, Coordinator {
     }
 
     func start() {
-        // Let's define which pages do we want to add into tab bar
         let pages: [TabBarPage] = [ .profile, .feed, .createPost]
             .sorted(by: { $0.pageOrderNumber() < $1.pageOrderNumber() })
         
-        // Initialization of ViewControllers or these pages
         let controllers: [UINavigationController] = pages.map({ getTabController($0) })
         
         prepareTabBarController(withTabControllers: controllers)
@@ -115,16 +101,16 @@ class TabCoordinator: NSObject, Coordinator {
     }
     
     private func prepareTabBarController(withTabControllers tabControllers: [UIViewController]) {
-        /// Set delegate for UITabBarController
         tabBarController.delegate = self
-        /// Assign page's controllers
         tabBarController.setViewControllers(tabControllers, animated: true)
-        /// Let set index
         tabBarController.selectedIndex = TabBarPage.feed.pageOrderNumber()
-        /// Styling
         tabBarController.tabBar.isTranslucent = false
-        
-        /// In this step, we attach tabBarController to navigation controller associated with this coordanator
+        let appearance = UITabBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = .systemBackground
+        tabBarController.tabBar.standardAppearance = appearance
+        tabBarController.tabBar.scrollEdgeAppearance = tabBarController.tabBar.standardAppearance
+
         navigationController.viewControllers = [tabBarController]
     }
       
