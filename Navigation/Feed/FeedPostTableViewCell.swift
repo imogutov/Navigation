@@ -20,15 +20,15 @@ class FeedPostTableViewCell: UITableViewCell {
     private let imagePostView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.contentMode = .scaleAspectFill
-        view.backgroundColor = .black
+        view.contentMode = .scaleAspectFit
+        view.backgroundColor = .systemGray6
         return view
     }()
     
     private let authorLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         label.numberOfLines = 2
         label.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         return label
@@ -37,7 +37,7 @@ class FeedPostTableViewCell: UITableViewCell {
     private let statusLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: 18)
         label.numberOfLines = 2
         label.textColor = UIColor.createColor(lightMode: .systemGray, darkMode: .lightGray)
         return label
@@ -98,7 +98,7 @@ class FeedPostTableViewCell: UITableViewCell {
             }
             for document in querySnapshot.documents {
                 let status = document.data()["status"] as? String ?? ""
-                self.statusLabel.text = status
+                self.statusLabel.text = "(\(status))"
             }
         }
     }
@@ -116,34 +116,35 @@ class FeedPostTableViewCell: UITableViewCell {
     private func layout() {
         
         contentView.addSubview(inCellView)
+        
+        let screenWidth = UIScreen.main.bounds.width
+        
         NSLayoutConstraint.activate([
             inCellView.topAnchor.constraint(equalTo: contentView.topAnchor),
             inCellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            inCellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            inCellView.widthAnchor.constraint(equalToConstant: screenWidth),
             inCellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
         
         contentView.addSubview(authorLabel)
         NSLayoutConstraint.activate([
             authorLabel.topAnchor.constraint(equalTo: inCellView.topAnchor, constant: 16),
-            authorLabel.leadingAnchor.constraint(equalTo: inCellView.leadingAnchor, constant: 16),
-            authorLabel.trailingAnchor.constraint(equalTo: inCellView.trailingAnchor, constant: -16),
+            authorLabel.leadingAnchor.constraint(equalTo: inCellView.leadingAnchor, constant: 16)
         ])
         
         contentView.addSubview(statusLabel)
         NSLayoutConstraint.activate([
-            statusLabel.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 4),
-            statusLabel.leadingAnchor.constraint(equalTo: inCellView.leadingAnchor, constant: 16),
+            statusLabel.topAnchor.constraint(equalTo: inCellView.topAnchor, constant: 16),
+            statusLabel.leadingAnchor.constraint(equalTo: authorLabel.trailingAnchor, constant: 4),
             statusLabel.trailingAnchor.constraint(equalTo: inCellView.trailingAnchor, constant: -16),
         ])
         
         contentView.addSubview(imagePostView)
         NSLayoutConstraint.activate([
-            imagePostView.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 8),
-            imagePostView.leadingAnchor.constraint(equalTo: inCellView.leadingAnchor),
-            imagePostView.trailingAnchor.constraint(equalTo: inCellView.trailingAnchor),
-            imagePostView.heightAnchor.constraint(equalTo: inCellView.widthAnchor),
-            imagePostView.widthAnchor.constraint(equalTo: inCellView.widthAnchor)
+            imagePostView.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 12),
+            imagePostView.leadingAnchor.constraint(equalTo: inCellView.leadingAnchor, constant: 16),
+            imagePostView.heightAnchor.constraint(equalToConstant: screenWidth-32),
+            imagePostView.widthAnchor.constraint(equalToConstant: screenWidth-32)
         ])
         
         contentView.addSubview(descriptionLabel)

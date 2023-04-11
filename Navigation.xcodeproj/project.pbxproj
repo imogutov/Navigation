@@ -112,7 +112,6 @@
 		2CAC8C84280C5C1100483900 = {
 			isa = PBXGroup;
 			children = (
-				2CAC8C99280C5C1400483900 /* Assets.xcassets */,
 				2CAC8C8F280C5C1100483900 /* Navigation */,
 				2CAC8C8E280C5C1100483900 /* Products */,
 			);
@@ -139,6 +138,7 @@
 				2CAC8C9B280C5C1400483900 /* LaunchScreen.storyboard */,
 				2CAC8C9E280C5C1400483900 /* Info.plist */,
 				2C3497DA2937C4A90075B0E6 /* GoogleService-Info.plist */,
+				2CAC8C99280C5C1400483900 /* Assets.xcassets */,
 				57EDE2472981343100A59459 /* Localizable.strings */,
 			);
 			path = Navigation;

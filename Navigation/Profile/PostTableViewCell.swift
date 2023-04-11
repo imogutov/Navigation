@@ -17,8 +17,8 @@ class PostTableViewCell: UITableViewCell {
     private let imagePostView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.contentMode = .scaleAspectFill
-        view.backgroundColor = .black
+        view.contentMode = .scaleAspectFit
+        view.backgroundColor = .systemGray6
         return view
     }()
     
@@ -62,7 +62,7 @@ class PostTableViewCell: UITableViewCell {
         
         let avatarRef = storage.reference().child("pictures/\(stringUrlImage).png")
         
-        avatarRef.getData(maxSize: 1 * 2048 * 2048) { data, error in
+        avatarRef.getData(maxSize: 2 * 2048 * 2048) { data, error in
             if let error = error {
                 print(error.localizedDescription)
             } else {
@@ -82,10 +82,13 @@ class PostTableViewCell: UITableViewCell {
     
     private func layout() {
         contentView.addSubview(inCellView)
+        
+        let screenWidth = UIScreen.main.bounds.width
+        
         NSLayoutConstraint.activate([
             inCellView.topAnchor.constraint(equalTo: contentView.topAnchor),
             inCellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            inCellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            inCellView.widthAnchor.constraint(equalToConstant: screenWidth),
             inCellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
         
@@ -99,10 +102,9 @@ class PostTableViewCell: UITableViewCell {
         contentView.addSubview(imagePostView)
         NSLayoutConstraint.activate([
             imagePostView.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 12),
-            imagePostView.leadingAnchor.constraint(equalTo: inCellView.leadingAnchor),
-            imagePostView.trailingAnchor.constraint(equalTo: inCellView.trailingAnchor),
-            imagePostView.heightAnchor.constraint(equalTo: inCellView.widthAnchor),
-            imagePostView.widthAnchor.constraint(equalTo: inCellView.widthAnchor)
+            imagePostView.leadingAnchor.constraint(equalTo: inCellView.leadingAnchor, constant: 16),
+            imagePostView.heightAnchor.constraint(equalToConstant: screenWidth-32),
+            imagePostView.widthAnchor.constraint(equalToConstant: screenWidth-32)
         ])
         
         contentView.addSubview(descriptionLabel)
