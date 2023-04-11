@@ -12,4 +12,4 @@
 
 Проект базируется на возможностях Firebase.
 
-!(https://ibb.co/bHdnXRb)
+!(https://i.ibb.co/N1YzKnT/Simulator-Screenshot-i-Phone-14-Pro-2023-04-10-at-21-43-55.png))
