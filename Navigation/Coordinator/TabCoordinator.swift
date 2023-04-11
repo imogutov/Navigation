@@ -170,7 +170,6 @@ class TabCoordinator: NSObject, Coordinator {
 extension TabCoordinator: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController,
                           didSelect viewController: UIViewController) {
-        // Some implementation
     }
 }
 

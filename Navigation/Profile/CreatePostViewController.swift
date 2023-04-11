@@ -74,6 +74,7 @@ class CreatePostViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     private func layout() {
+        view.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
         view.addSubview(userNameLabel)
         NSLayoutConstraint.activate([
             userNameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),

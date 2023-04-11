@@ -101,12 +101,10 @@
 		2C3EF5DB2836BCA1003B6AA7 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				578F56EC29D21323004EAD38 /* Cell.swift */,
 				578F56EE29D2DC32004EAD38 /* CreatePostViewController.swift */,
 				2C3EF5D92836BC89003B6AA7 /* ProfileHeaderView.swift */,
 				2CAC8CA6280C606100483900 /* ProfileViewController.swift */,
 				2C0E1D5328527D68001C936D /* PostTableViewCell.swift */,
-				57E0C99029DD6B6000E7B2E7 /* FeedPostTableViewCell.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -114,6 +112,7 @@
 		2CAC8C84280C5C1100483900 = {
 			isa = PBXGroup;
 			children = (
+				2CAC8C99280C5C1400483900 /* Assets.xcassets */,
 				2CAC8C8F280C5C1100483900 /* Navigation */,
 				2CAC8C8E280C5C1100483900 /* Products */,
 			);
@@ -130,15 +129,13 @@
 		2CAC8C8F280C5C1100483900 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				57B9FD8629D5AC06005B56B8 /* CustomElements */,
-				57B9FD8529D5ABDD005B56B8 /* Services */,
 				2CF2079028AB8E31000034CC /* Coordinator */,
-				57C8CBD5298E7ACA0081CF51 /* AuthenticationViewController.swift */,
-				2C74772C284940AF007FD6A8 /* LoginViewController.swift */,
-				57B9FD8929D60703005B56B8 /* FeedViewController.swift */,
+				57B9FD8529D5ABDD005B56B8 /* Services */,
+				57E0C99629E53DA800E7B2E7 /* AuthAndLogin */,
+				57E0C99729E53DE700E7B2E7 /* Feed */,
+				57B9FD8629D5AC06005B56B8 /* CustomElements */,
 				57B9FD8429D5AAF6005B56B8 /* Delegate */,
 				2C3EF5DB2836BCA1003B6AA7 /* Profile */,
-				2CAC8C99280C5C1400483900 /* Assets.xcassets */,
 				2CAC8C9B280C5C1400483900 /* LaunchScreen.storyboard */,
 				2CAC8C9E280C5C1400483900 /* Info.plist */,
 				2C3497DA2937C4A90075B0E6 /* GoogleService-Info.plist */,
@@ -184,8 +181,27 @@
 				57EDE2482981386B00A59459 /* LocalizationShortcut.swift */,
 				2CF2078A289D0A70000034CC /* CustomButton.swift */,
 				2CF2078C28A2C37E000034CC /* CustomTextField.swift */,
+				578F56EC29D21323004EAD38 /* Cell.swift */,
 			);
 			path = CustomElements;
+			sourceTree = "<group>";
+		};
+		57E0C99629E53DA800E7B2E7 /* AuthAndLogin */ = {
+			isa = PBXGroup;
+			children = (
+				57C8CBD5298E7ACA0081CF51 /* AuthenticationViewController.swift */,
+				2C74772C284940AF007FD6A8 /* LoginViewController.swift */,
+			);
+			path = AuthAndLogin;
+			sourceTree = "<group>";
+		};
+		57E0C99729E53DE700E7B2E7 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				57B9FD8929D60703005B56B8 /* FeedViewController.swift */,
+				57E0C99029DD6B6000E7B2E7 /* FeedPostTableViewCell.swift */,
+			);
+			path = Feed;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
