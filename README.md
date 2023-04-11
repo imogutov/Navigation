@@ -12,4 +12,4 @@
 
 Проект базируется на возможностях Firebase.
 
-!(https://drive.google.com/uc?export=view&id=1tfdQah5j1wbgnG8qCsWNNXntnEoe0gWg)
+!(https://disk.yandex.ru/i/bx0IwLaZx3pvfA)
